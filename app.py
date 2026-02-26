@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 import os
 from data_models import db, Author, Book
@@ -14,7 +14,16 @@ db.init_app(app)
 
 @app.route("/add_author", methods = ['GET', 'POST'])
 def add_author():
-  return render_template('add_author.html'),200
+  if request.method == 'POST':
+      author = Author(name = request.form.get("name"),
+                      birth_date = request.form.get("birth_date"),
+                      date_of_death = request.form.get("date_of_death"))
+      db.session.add(author)
+      db.session.commit()
+      flash("Author added successfully", "success")
+      return redirect(url_for("add_author.html"))
+
+  return render_template('add_author.html')
 
 
 
