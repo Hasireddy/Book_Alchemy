@@ -21,7 +21,7 @@ def add_author():
       db.session.add(author)
       db.session.commit()
       flash("Author added successfully", "success")
-      return redirect(url_for("add_author.html"))
+      return redirect(url_for("add_author"))
 
   return render_template('add_author.html')
 
@@ -29,7 +29,24 @@ def add_author():
 
 @app.route("/add_book", methods = ['GET', 'POST'])
 def add_author():
-  return render_template('add_book.html'),200
+  book = Book(isbn = request.form.get("isbn"),
+              title = request.form.get("title"),
+              publication_year = request.form.get("publication_year")
+              author_id = request.form.get("author_id")
+
+  db.session.add(book)
+  db.session.commit()
+  flash("Book added successfully", "success")
+  return redirect(url_for("add_book"))
+
+  authors = Author.query.all()
+  return  render_template ('add_book.html', authors = authors)
+
+
+@app.route("/home", methods = ['GET'])
+def home():
+    books = Book.query.all()
+    return render_template('home.html', books = books)
 
 
 """with app.app_context():
