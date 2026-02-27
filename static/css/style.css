@@ -1,0 +1,228 @@
+/* ================== General Page Styling ================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+main {
+    padding: 1rem 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* ================== Flash Messages ================== */
+.flash {
+    padding: 0.8rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.flash-success {
+    background: #d4edda;
+    color: #155724;
+}
+.flash-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ================== Forms Styling ================== */
+form {
+    background: white;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+/* Inputs and buttons - remove global width */
+input, select, button {
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Buttons */
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+/* Full-width forms (add-author / add-book) */
+.full-width-form input,
+.full-width-form select,
+.full-width-form button {
+    width: 100%;
+}
+
+/* ================== Top Bar (Search + Sort) ================== */
+.top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Search form */
+.search-form {
+    display: flex;
+    flex: 1;               /* take remaining width */
+    min-width: 200px;
+    gap: 0.5rem;
+}
+
+.search-form input {
+    flex: 1;               /* input stretches */
+}
+
+.search-form button {
+    flex-shrink: 0;        /* button keeps its size */
+}
+
+/* Sort form */
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sort-form select {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+/* ================== Book Cards ================== */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.book-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.book-info h3 {
+    margin: 0.2rem 0;
+}
+
+/* Actions (delete buttons) */
+.actions form {
+    display: inline-block;
+}
+
+/* ================== Badges ================== */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+    margin-right: 0.3rem;
+}
+
+* Top Buttons */
+.top-buttons {
+    margin: 2rem 0 4rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.top-buttons a {
+    display: inline-block;  /* ensure each link/button is block-like */
+}
+
+.top-buttons a button {
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.top-buttons a button:hover {
+    background-color: #45a049;
+}
+
+
+/* Buttons inside forms (Add Author / Add Book) */
+form button {
+    display:block;
+    width:100%;
+    text-align:center;
+    margin:0 auto;
+    padding: 0.6rem 1rem;      /* vertical + horizontal padding */
+    font-weight: bold;
+    background-color: #4CAF50; /* green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;               /* let it size based on content */
+    min-width: 120px;          /* optional: minimum width for consistency */
+    margin-top: 1.2rem;        /* space above button */
+    transition: background 0.2s, transform 0.1s;
+}
+
+form button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.badge-author { background-color: #007BFF; }   /* blue */
+.badge-year { background-color: #28A745; }     /* green */
+
+/* ================== Responsive ================== */
+@media (max-width: 600px) {
+    .top-bar {
+        flex-direction: column;
+    }
+
+    .search-form, .sort-form {
+        width: 100%;
+    }
+}

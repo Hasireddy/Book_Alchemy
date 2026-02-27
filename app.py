@@ -66,17 +66,6 @@ def add_book():
     return  render_template ('add_book.html', authors = authors)
 
 
-@app.route("/home", methods = ['GET'])
-def home():
-    search_term = request.args.get("q")
-
-    if search_term:
-        books = Book.query.filter(Book.title.ilike(f"%{search_term}%")).all()
-    else:
-         books = Book.query.all()
-    return render_template('home.html', books = books)
-
-
 @app.route("/delete/<int:book_id>", methods = ['POST'])
 def delete_book(book_id):
     """Delete a book by its id"""
@@ -94,6 +83,32 @@ def delete_book(book_id):
         flash(f"Book '{book.title}' deleted successfully!", "success")
 
     return redirect(url_for("home"))
+
+
+
+@app.route("/home", methods = ['GET'])
+def home():
+    search_term = request.args.get("q")
+    sort_by = request.args.get("sort")
+
+    books_query = Book.query.join(Author)
+
+    if search_term:
+        books_query = books_query.filter(Book.title.ilike(f"%{search_term}%"))
+
+    if sort_by == "title":
+        books_query = books_query.order_by(Book.title).all()
+    elif sort_by == "author":
+        books_query = books_query.order_by(Author.name).all()
+    elif sort_by == "publication_year":
+        books_query = books_query.order_by(Book.publication_year).all()
+    else:
+        books_query = books_query.order_by(Book.id)
+
+    books = books_query.all()
+    return render_template('home.html', books = books, sort_by=sort_by, search_term=search_term)
+
+
 
 
 
