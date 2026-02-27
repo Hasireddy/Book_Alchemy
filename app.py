@@ -77,7 +77,9 @@ def delete_book(book_id):
     #Delete author if they have no more books
     if len(author.books) == 0:
         db.session.delete(author)
-        db.session.commit()
+    db.session.commit()
+
+    if len(author.books) == 1:
         flash(f"Book '{book.title}' and its author '{author.name}' deleted successfully!", "success")
     else:
         flash(f"Book '{book.title}' deleted successfully!", "success")
@@ -97,11 +99,11 @@ def home():
         books_query = books_query.filter(Book.title.ilike(f"%{search_term}%"))
 
     if sort_by == "title":
-        books_query = books_query.order_by(Book.title).all()
+        books_query = books_query.order_by(Book.title)
     elif sort_by == "author":
-        books_query = books_query.order_by(Author.name).all()
+        books_query = books_query.order_by(Author.name)
     elif sort_by == "publication_year":
-        books_query = books_query.order_by(Book.publication_year).all()
+        books_query = books_query.order_by(Book.publication_year)
     else:
         books_query = books_query.order_by(Book.id)
 
