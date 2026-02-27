@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,redirect, url_for, flash
 from flask_migrate import Migrate
 import os
-from datetime import datetime
+import requests
 from data_models import db, Author, Book
 
 app = Flask(__name__)
@@ -51,7 +51,7 @@ def add_book():
         title = request.form.get("title")
         publication_year = int(request.form.get("publication_year"))
         author_id = int(request.form.get("author_id"))
-        rating = request.form.get("rating")
+        rating = int(request.form.get("rating"))
 
         print(request.form)
 
