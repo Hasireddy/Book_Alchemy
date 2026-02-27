@@ -17,6 +17,15 @@
   <input type="date" id="date_of_death" name="date_of_death"><br><br>
   <input type="submit" value="Add Author">
   </form>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
 
   </body>
 </html>

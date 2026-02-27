@@ -5,6 +5,8 @@ from data_models import db, Author, Book
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'my-super-secret-key'
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'data/library.sqlite')}"
 
@@ -30,7 +32,7 @@ def add_author():
 
       db.session.add(author)
       db.session.commit()
-      #flash("Author added successfully", "success")
+      flash("Author added successfully", "success")
       return redirect(url_for("add_author"))
 
   return render_template('add_author.html')
@@ -43,10 +45,12 @@ def add_book():
       otherwise returns all books if it is a GET request"""
 
     if request.method == 'POST':
-        isbn=request.form.get("isbn")
-        title=request.form.get("title")
-        publication_year=request.form.get("publication_year")
-        author_id=request.form.get("author_id")
+        isbn = request.form.get("isbn")
+        title = request.form.get("title")
+        publication_year = int(request.form.get("publication_year"))
+        author_id = int(request.form.get("author_id"))
+
+        print(request.form)
 
         book = Book(isbn = isbn,
               title = title,
@@ -55,7 +59,7 @@ def add_book():
 
         db.session.add(book)
         db.session.commit()
-        #flash("Book added successfully", "success")
+        flash("Book added successfully", "success")
         return redirect(url_for("add_book"))
 
     authors = Author.query.all()
@@ -64,8 +68,14 @@ def add_book():
 
 @app.route("/home", methods = ['GET'])
 def home():
-    books = Book.query.all()
+    search_term = request.args.get("q")
+
+    if search_term:
+        books = Book.query.filter(Book.title.ilike(f"%{search_term}%")).all()
+    else:
+         books = Book.query.all()
     return render_template('home.html', books = books)
+
 
 
 if __name__ == '__main__':
