@@ -28,6 +28,7 @@ class Book(db.Model):
     title = db.Column(db.String(100))
     publication_year = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
+    rating = db.Column(db.Float)
 
     # Relationship to access author easily
     author = db.relationship('Author', backref='books')

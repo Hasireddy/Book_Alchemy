@@ -5,6 +5,9 @@
     <p><strong>ISBN:</strong> {{ book.isbn }}</p>
     <p><strong>Author:</strong> <a href="{{ url_for('author_detail', author_id=book.author.id) }}">{{ book.author.name }}</a></p>
     <p><strong>Publication Year:</strong> {{ book.publication_year }}</p>
+    {% if book.rating %}
+        <span class="badge badge-rating">⭐ {{ book.rating }}/10</span>
+    {% endif %}
 
     <a href="{{ url_for('home') }}" class="back-link">⬅ Back to Home</a>
 </div>

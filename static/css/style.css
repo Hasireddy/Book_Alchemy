@@ -277,6 +277,31 @@ form button:hover {
     background: #e0e0e0;
 }
 
+a{
+text_decoration:none !important;
+}
+
+
+.detail-page a ,.home a{
+    text-decoration: none;
+}
+
+
+.detail-page a,
+.detail-page a:hover,
+.detail-page a:focus {
+    text-decoration: none;
+}
+
+.badge-rating {
+    background: gold;
+    color: black;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+
 .badge-author { background-color: #007BFF; }   /* blue */
 .badge-year { background-color: #28A745; }     /* green */
 

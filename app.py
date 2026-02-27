@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request,redirect, url_for, flash
+from flask_migrate import Migrate
 import os
 from datetime import datetime
 from data_models import db, Author, Book
@@ -11,6 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'data/library.sqlite')}"
 
 db.init_app(app)
+Migrate(app, db)
 
 """with app.app_context():
     db.create_all()"""
@@ -49,13 +51,15 @@ def add_book():
         title = request.form.get("title")
         publication_year = int(request.form.get("publication_year"))
         author_id = int(request.form.get("author_id"))
+        rating = request.form.get("rating")
 
         print(request.form)
 
         book = Book(isbn = isbn,
               title = title,
               publication_year = publication_year,
-              author_id = author_id)
+              author_id = author_id,
+              rating = rating)
 
         db.session.add(book)
         db.session.commit()

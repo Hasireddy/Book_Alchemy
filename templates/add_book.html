@@ -19,6 +19,9 @@
         {% endfor %}
     </select>
 
+    <label for="rating">Rating</label>
+    <input type="number" name="rating"  min="1" max="10">
+
     <button type="submit">Add Book</button>
 </form>
 <a href="{{ url_for('home') }}"><button type="button">HOME</button></a>
