@@ -111,7 +111,18 @@ def home():
     return render_template('home.html', books = books, sort_by=sort_by, search_term=search_term)
 
 
+# Book Detail Page
+@app.route("/book/<int:book_id>", methods = ['GET'])
+def book_detail(book_id):
+    book = Book.query.get_or_404(book_id)
+    return render_template('book_detail.html', book = book)
 
+
+# Author Detail Page
+@app.route("/author/<int:author_id>")
+def author_detail(author_id):
+    author = Author.query.get_or_404(author_id)
+    return render_template("author_detail.html", author=author)
 
 
 

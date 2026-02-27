@@ -30,12 +30,7 @@
 {% for book in books %}
 <div class="book-card">
     <div class="book-info">
-        <h3>{{ book.title }}</h3>
-        <p>ISBN: {{ book.isbn }}</p>
-        <p>
-            <span class="badge badge-author">{{ book.author.name }}</span>
-            <span class="badge badge-year">{{ book.publication_year }}</span>
-        </p>
+        <h3><a href="{{ url_for('book_detail', book_id=book.id) }}">{{ book.title }}</a></h3>
     </div>
     <div class="actions">
         <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">

@@ -213,6 +213,70 @@ form button:hover {
     transform: translateY(-1px);
 }
 
+
+/* Container for detail pages */
+.detail-page {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Headings */
+.detail-page h2 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Paragraphs */
+.detail-page p {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Links */
+.detail-page a {
+    color: #1a73e8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.detail-page a:hover {
+    color: #0c4a9f;
+    text-decoration: underline;
+}
+
+/* Book list for authors */
+.detail-page ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.detail-page ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Back button link */
+.detail-page a.back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.detail-page a.back-link:hover {
+    background: #e0e0e0;
+}
+
 .badge-author { background-color: #007BFF; }   /* blue */
 .badge-year { background-color: #28A745; }     /* green */
 
