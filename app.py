@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
 import os
+from datetime import datetime
 from data_models import db, Author, Book
 
 app = Flask(__name__)
@@ -10,17 +10,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'data
 
 db.init_app(app)
 
+"""with app.app_context():
+    db.create_all()"""
 
 
 @app.route("/add_author", methods = ['GET', 'POST'])
 def add_author():
+  """This method adds a new author if request is POST,
+  otherwise returns all authors if it is a GET request"""
+
   if request.method == 'POST':
-      author = Author(name = request.form.get("name"),
-                      birth_date = request.form.get("birth_date"),
-                      date_of_death = request.form.get("date_of_death"))
+      name = request.form.get("name")
+      birth_date = request.form.get("birth_date")
+      date_of_death = request.form.get("date_of_death")
+
+      author = Author(name = name,
+                      birth_date = birth_date,
+                      date_of_death = date_of_death)
+
       db.session.add(author)
       db.session.commit()
-      flash("Author added successfully", "success")
+      #flash("Author added successfully", "success")
       return redirect(url_for("add_author"))
 
   return render_template('add_author.html')
@@ -28,19 +38,28 @@ def add_author():
 
 
 @app.route("/add_book", methods = ['GET', 'POST'])
-def add_author():
-  book = Book(isbn = request.form.get("isbn"),
-              title = request.form.get("title"),
-              publication_year = request.form.get("publication_year")
-              author_id = request.form.get("author_id")
+def add_book():
+    """This method adds a new book if request is POST,
+      otherwise returns all books if it is a GET request"""
 
-  db.session.add(book)
-  db.session.commit()
-  flash("Book added successfully", "success")
-  return redirect(url_for("add_book"))
+    if request.method == 'POST':
+        isbn=request.form.get("isbn")
+        title=request.form.get("title")
+        publication_year=request.form.get("publication_year")
+        author_id=request.form.get("author_id")
 
-  authors = Author.query.all()
-  return  render_template ('add_book.html', authors = authors)
+        book = Book(isbn = isbn,
+              title = title,
+              publication_year = publication_year,
+              author_id = author_id)
+
+        db.session.add(book)
+        db.session.commit()
+        #flash("Book added successfully", "success")
+        return redirect(url_for("add_book"))
+
+    authors = Author.query.all()
+    return  render_template ('add_book.html', authors = authors)
 
 
 @app.route("/home", methods = ['GET'])
@@ -49,5 +68,7 @@ def home():
     return render_template('home.html', books = books)
 
 
-"""with app.app_context():
-    db.create_all()"""
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5002, debug=True)
+
+
